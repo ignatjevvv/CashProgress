@@ -136,12 +136,19 @@ function getCurrencyCourseDollarAPI() {
     let url = 'https://va-backend.treeum.net/api/branches_rates?embedded={%22branch_id%22:1,%22profile_id%22:1}&max_results=50&page=1&where={%22branch_id%22:%22605a111b583f660a5c799b50%22,%22currency%22:%22usd%22}';
 
     fetch(url)
-        .then((response) => {
+    .then((response) => {
+        if (response.ok) {
             return response.json();
-        })
-        .then((data) => {
-            parseObjectRate(data);
-        });
+        }
+    
+        throw new Error("response.status");
+    })
+    .then((data) => {
+        parseObjectRate(data);
+    })
+    .catch((error, response) => {
+        alert(`Ошибка сетевого доступа, курс валют недоступен: ${error.message}`);
+    });
 }
 
 function parseObjectRate(data) {
