@@ -12,7 +12,9 @@ html {
 }
 
 body {
+    font-family: 'Inter';
     background-color: black;
+    transition: 0.3s;
 }
 
 .container {
@@ -181,6 +183,15 @@ input {
     color: hsla(0, 0%, 100%, 1);
     border: inherit;
     outline: none;
+}
+
+/* ERROR BLOCK */
+.error {
+    color: white;
+    padding: 1rem;
+    background-color: rgb(255,99,71);
+    text-align: center;
+    border-radius: 1rem;
 }
 
 

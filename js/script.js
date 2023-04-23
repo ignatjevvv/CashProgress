@@ -141,13 +141,13 @@ function getCurrencyCourseDollarAPI() {
             return response.json();
         }
     
-        throw new Error("response.status");
+        throw new Error(`Ошибка сетевого доступа, курс валют недоступен: ${response.status}`);
     })
     .then((data) => {
         parseObjectRate(data);
     })
-    .catch((error, response) => {
-        alert(`Ошибка сетевого доступа, курс валют недоступен: ${error.message}`);
+    .catch((error) => {
+        showErrorMessage(error.message);
     });
 }
 
@@ -198,6 +198,27 @@ function getDate() {
     let d = date.getDate() + '.' + (+date.getMonth() + 1) + '.' + date.getFullYear();
     return d;
 }
+
+
+let mainContainer = document.querySelector('.home__container');
+console.log(mainContainer);
+
+function showErrorMessage(errorCode) {
+    let div = document.createElement('div');
+    let theFirstChild = mainContainer.firstChild;
+
+    div.classList.add('error');
+    div.textContent = errorCode;
+
+    mainContainer.appendChild(div);
+    mainContainer.insertBefore(div, theFirstChild);
+
+    // setTimeout(() => {
+    //     document.querySelector('.error').remove();
+    // }, 5000);
+}
+
+// showErrorMessage();
 
 loadDateLocalStor();
 getCurrencyCourseDollarAPI();
